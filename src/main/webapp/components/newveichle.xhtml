@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:outputPanel id="veichleDetail" style="text-align:center;">
+        <h:form id="newVeichle">
+            <p:panelGrid  columns="2" rendered="true" >
+                <f:facet name="header" rendered="#{tableMB.renderImage}">
+                    <p:graphicImage rendered="#{tableMB.renderImage}" url="images/#{tableMB.type}.png"/>
+                </f:facet>
+
+                <p:outputLabel value="Type:" />
+                <p:outputLabel value="#{tableMB.type}" rendered="#{tableMB.renderImage}" />
+                <p:selectOneMenu rendered="#{!tableMB.renderImage}" value="#{tableMB.type}" style="width:210px">
+                    <f:selectItem itemLabel="Select Type" itemValue="" noSelectionOption="false" />
+                    <f:selectItems value="#{tableMB.getTypes()}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Number:" />
+                <p:outputLabel value="#{tableMB.chassis.number}" rendered="#{tableMB.renderImage}" />
+                <p:inputText   value="#{tableMB.chassis.number}" rendered="#{!tableMB.renderImage}" style="width:200px" />
+
+                <p:outputLabel value="Series:" />
+                <p:outputLabel value="#{tableMB.chassis.series}" rendered="#{tableMB.renderImage}" />
+                <p:inputText   value="#{tableMB.chassis.series}" rendered="#{!tableMB.renderImage}" style="width:200px" />
+
+                <p:outputLabel value="Color:" />
+                <p:outputLabel value="#{tableMB.color}" rendered="#{tableMB.renderImage}" style="color:#{tableMB.color}"/>
+                <p:inputText   value="#{tableMB.color}" rendered="#{!tableMB.renderImage}" style="width:200px" />
+
+                <p:outputLabel value="" />
+                <p:commandButton value="Insert" actionListener="#{tableMB.insert()}"/>
+
+            </p:panelGrid>
+        </h:form>
+    </p:outputPanel>
+
+</ui:composition>
+
