@@ -29,6 +29,27 @@
                     </p:layoutUnit>
 
                 </p:layout>
+                <p:dialog style="z-index: 1500;" header="Veichle Detail" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty tableMB.selectedVeichle}" columnClasses="label,value">
+                            <f:facet name="header">
+                                <img style="height: 50px" src="images/#{tableMB.selectedVeichle.type}.png"/>
+                            </f:facet>
+
+                            <h:outputText value="Chassis Series:" />
+                            <h:outputText value="#{tableMB.selectedVeichle.chassis.series}" />
+
+                            <h:outputText value="Chassis Number:" />
+                            <h:outputText value="#{tableMB.selectedVeichle.chassis.number}" />
+
+                            <h:outputText value="Color:" />
+                            <h:inputText value="#{tableMB.selectedVeichle.color}" />
+                            
+                            <p:commandButton value="Delete" actionListener="#{tableMB.delete()}" action="index" update=":form"/>
+                            <p:commandButton value="Edit" actionListener="#{tableMB.edit()}" action="index" update=":form"/>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
             </h:form>
         </h:body>
     </f:view>

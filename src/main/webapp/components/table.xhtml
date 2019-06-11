@@ -7,7 +7,7 @@
     <p:dataTable var="veichle" value="#{tableMB.veichles}" paginator="true" rows="10" rowKey="#{veichle.chassis}"
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                  rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{tableMB.selectedVeichle}" id="carTable" lazy="true">
-        <p:ajax event="rowSelect" update=":form:buttons" listener="#{tableMB.onRowSelect}"/>
+        <p:ajax event="rowSelect" listener="#{tableMB.onRowSelect}" update=":form:carDetail" oncomplete="PF('carDialog').show()" />
         <p:column headerText="Type" sortBy="#{veichle.type}" filterBy="#{veichle.type}">
             <h:outputText value="#{veichle.type}" />
         </p:column>
@@ -21,8 +21,4 @@
             <h:outputText value="#{veichle.color}" />
         </p:column>
     </p:dataTable>
-    <h:form id="buttons">
-        <p:commandButton value="Edit" disabled="#{!tableMB.selectedVeichle.fullField}"/>
-        <p:commandButton value="Delete" disabled="#{!tableMB.selectedVeichle.fullField}"/>
-    </h:form>
 </ui:composition>
