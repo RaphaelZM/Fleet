@@ -44,11 +44,11 @@ public class Chassis implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("{number:");
+        sb.append("{number:NumberLong(");
         sb.append(this.number);
-        sb.append(",series:");
+        sb.append("),series:'");
         sb.append(this.series);
-        sb.append("}");
+        sb.append("'}");
         return sb.toString();
     }
 

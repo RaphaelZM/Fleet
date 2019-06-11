@@ -56,11 +56,11 @@ public class Veichle implements Serializable {
         sb.append(this.getChassis().toString());
         sb.append(",numberOfPassengers:");
         sb.append(this.numberOfPassengers);
-        sb.append(",type:");
+        sb.append(",type:'");
         sb.append(this.type);
-        sb.append(", color:");
+        sb.append("', color:'");
         sb.append(this.color);
-        sb.append("}");
+        sb.append("'}");
         return sb.toString();
     }
 }

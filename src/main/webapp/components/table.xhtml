@@ -1,24 +1,28 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    
-    <p:dataTable var="veichle" value="#{tableMB.veichles}" paginator="true" rows="10" rowKey="#{veichle.chassis}"
-                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                     rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{tableMB.selectedVeichle}" id="carTable" lazy="true">
-            <p:column headerText="Color" sortBy="#{veichle.type}" filterBy="#{veichle.type}">
-                <h:outputText value="#{veichle.type}" />
-            </p:column>
-            <p:column headerText="Chassis Number" sortBy="#{veichle.chassis.number}" filterBy="#{veichle.chassis.number}">
-                <h:outputText value="#{veichle.chassis.number}" />
-            </p:column>
-            <p:column headerText="Chassis Series" sortBy="#{veichle.chassis.series}" filterBy="#{veichle.chassis.series}">
-                <h:outputText value="#{veichle.chassis.series}" />
-            </p:column>
-            <p:column headerText="Brand" sortBy="#{veichle.color}" filterBy="#{veichle.color}">
-                <h:outputText value="#{veichle.color}" />
-            </p:column>
-        </p:dataTable>
-</ui:composition>
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
+    <p:dataTable var="veichle" value="#{tableMB.veichles}" paginator="true" rows="10" rowKey="#{veichle.chassis}"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{tableMB.selectedVeichle}" id="carTable" lazy="true">
+        <p:ajax event="rowSelect" update=":form:buttons" listener="#{tableMB.onRowSelect}"/>
+        <p:column headerText="Type" sortBy="#{veichle.type}" filterBy="#{veichle.type}">
+            <h:outputText value="#{veichle.type}" />
+        </p:column>
+        <p:column headerText="Chassis Number" sortBy="#{veichle.chassis.number}" filterBy="#{veichle.chassis.number}">
+            <h:outputText value="#{veichle.chassis.number}" />
+        </p:column>
+        <p:column headerText="Chassis Series" sortBy="#{veichle.chassis.series}" filterBy="#{veichle.chassis.series}">
+            <h:outputText value="#{veichle.chassis.series}" />
+        </p:column>
+        <p:column headerText="Color" sortBy="#{veichle.color}" filterBy="#{veichle.color}">
+            <h:outputText value="#{veichle.color}" />
+        </p:column>
+    </p:dataTable>
+    <h:form id="buttons">
+        <p:commandButton value="Edit" disabled="#{!tableMB.selectedVeichle.fullField}"/>
+        <p:commandButton value="Delete" disabled="#{!tableMB.selectedVeichle.fullField}"/>
+    </h:form>
+</ui:composition>

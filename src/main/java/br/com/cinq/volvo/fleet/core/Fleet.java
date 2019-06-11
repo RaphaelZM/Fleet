@@ -6,12 +6,11 @@ import br.com.cinq.volvo.fleet.errors.DatabaseDeleteError;
 import br.com.cinq.volvo.fleet.errors.DatabaseEditError;
 import br.com.cinq.volvo.fleet.errors.DatabaseInsertError;
 import br.com.cinq.volvo.fleet.dao.DatabaseInterface;
-import br.com.cinq.volvo.fleet.dao.ListDB;
+import br.com.cinq.volvo.fleet.dao.MongoDB;
 import br.com.cinq.volvo.fleet.dto.Chassis;
 import br.com.cinq.volvo.fleet.dto.Veichle;
 import br.com.cinq.volvo.fleet.errors.ErrorAbstract;
 import br.com.cinq.volvo.fleet.errors.VeichleExistsError;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class Fleet {
     private final DatabaseInterface db;
 
     private Fleet() {
-        db = new ListDB();
+        db = new MongoDB();
     }
 
     public static Fleet getInstance() {

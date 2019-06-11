@@ -6,12 +6,14 @@ import br.com.cinq.volvo.fleet.dto.Veichle;
 import br.com.cinq.volvo.fleet.dto.veichle.Bus;
 import br.com.cinq.volvo.fleet.dto.veichle.Car;
 import br.com.cinq.volvo.fleet.dto.veichle.Truck;
+import br.com.cinq.volvo.fleet.errors.ErrorAbstract;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
@@ -20,7 +22,7 @@ import org.primefaces.event.SelectEvent;
  * @author rapha
  */
 @ManagedBean(name="tableMB")
-@SessionScoped
+@ViewScoped
 public class TableManagedBean implements Serializable {
 
     private static final long serialVersionUID = -2805889865892785199L;
@@ -29,6 +31,7 @@ public class TableManagedBean implements Serializable {
     private String type;
     private Chassis chassis;
     private String color;
+    private String message;
     private boolean renderImage;
 
     public TableManagedBean() {
@@ -36,6 +39,7 @@ public class TableManagedBean implements Serializable {
         chassis = new Chassis();
         color = "";
         type = "";
+        message = "";
     }
     
     @PostConstruct
@@ -94,6 +98,14 @@ public class TableManagedBean implements Serializable {
         this.type = type;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public void setRenderImage(boolean renderImage) {
         this.renderImage = renderImage;
     }
@@ -104,7 +116,6 @@ public class TableManagedBean implements Serializable {
     
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("Veichle Selected", ((Veichle) event.getObject()).getChassis().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public TableManagedBean(List<Veichle> table) {
@@ -132,6 +143,11 @@ public class TableManagedBean implements Serializable {
         } else {
             
         }
-        Fleet.getInstance().insert(v);
+        ErrorAbstract ea = Fleet.getInstance().insert(v);
+        if(ea == null) {
+            type = "";
+            color = "";
+            chassis = new Chassis();
+        }
     }
 }
